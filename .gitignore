@@ -1,0 +1,6 @@
+qc_torch/
+torchqc.egg-info/
+build/
+dist/
+TorchQc.code-workspace
+to_be_inserted/*
