@@ -1,7 +1,10 @@
-# TorchQc
+# TorchQC: Quantum Dynamics and Machine Learning
 
-* Create package
-python setup.py sdist bdist_wheel
+[Dimitris Koutromanos](https://link-url-here.org)
+
+TorchQC is a python package for simulating and controlling quantum systems.
 
 * Install package
-pip install .
+pip install torchqc
+
+* Citation
