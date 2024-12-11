@@ -6,12 +6,10 @@ TorchQC is a Python library that is based on the PyTorch deep learning library. 
 ## Contributors
 [Dimitris Koutromanos](https://link-url-here.org) [Dionisis Stefanatos](https://github.com/diostef) [Emmanuel Paspalakis](https://github.com/paspalak)
 
-* Description
-TorchQC is a python package for simulating and controlling quantum systems.
 
 ## Repository structure
 
-- examples : folder containing jupyter notebooks demonstrating how library can be used
+- examples: a folder containing jupyter notebooks demonstrating how the library can be used
     - composite_system_dynamics.ipynb
     - correlation_functions.ipynb
     - coupled_qubits_plus_resonator.ipynb
@@ -41,30 +39,30 @@ TorchQC is a python package for simulating and controlling quantum systems.
     - steadystate.ipynb
     - Two_operator_two_time_correlation_function.ipynb
 
-- LICENSE : licence file
-- README.md : Readme Markdown file
-- requirements.txt : file with python packages requirements for running the library
-- torchqc : main library directory with the core source code
-    - adams_bashforth_methods.py : Adams numerical methods for solving ordibnary differential
-    - common_functions.py : contains common useful functions
-    - common_matrices.py : matrix representations of common quantum operators
-    - correlation.py : methods to calculate correlation functions
-    - dynamics.py : methods to solve quantum dynamics (i.e. Schrodinger equation, Lindblad master equation)
-    - fock_liouville.py : methods to calculate operators useful for quantum dynamics in Fock-Liouville space
-    - mappings.py : Lie algebra operations (commutator, anticommutator)
-    - markovian.py : method to apply Lindblad dissipative operator
-    - operators.py : Operator / DynamicOperator Python classes that represent arbitrary quantum operators (density matrix, Hamiltonian)
-    - runge_kutta_methods.py : Runge-Kutta numerical methods for solving ordibnary differential
-    - states.py : QuamtumState class representing quantum state vector
-    - tensor_product.py : methods that calculate tensor products (Kronecker products) of states or operators
+- LICENSE: license file
+- README.md: Readme Markdown file
+- requirements.txt: file with Python package requirements for running the library
+- torchqc: main library directory with the core source code
+    - adams_bashforth_methods.py: Adams numerical methods for solving ordinary differential equations
+    - common_functions.py: contains common useful functions
+    - common_matrices.py: matrix representations of common quantum operators
+    - correlation.py: methods to calculate correlation functions
+    - dynamics.py: methods to solve quantum dynamics (i.e. Schrodinger equation, Lindblad master equation)
+    - fock_liouville.py: methods to calculate operators useful for quantum dynamics in Fock-Liouville space
+    - mappings.py: Lie algebra operations (commutator, anticommutator)
+    - markovian.py: method to apply Lindblad dissipative operator
+    - operators.py: Operator / DynamicOperator Python classes that represent arbitrary quantum operators (density matrix, Hamiltonian)
+    - runge_kutta_methods.py: Runge-Kutta numerical methods for solving ordinary differential equations
+    - states.py: QuamtumState class representing quantum state vector
+    - tensor_product.py: methods that calculate tensor products (Kronecker products) of states or operators
 
 ## Installation instructions
-* Clone github repository
+* Clone GitHub repository
 ```sh
 git clone https://github.com/qoptics-qtech/torchqc.git
 ```
 
-* Setup python virtual environment (Python 3 required)
+* Setup Python virtual environment (Python 3 required)
 ```sh
 python -m venv my_env
 ```
@@ -79,13 +77,13 @@ source my_env/bin/activate
 pip install -r requirements.txt
 ```
 
-* Install package (until it will officialy been released in Python Package Index PyPI)
+* Install package (until it is officially released in Python Package Index PyPI)
 ```sh
 pip install .
 ```
 
 ## Examples execution
-The examples folder contains several examples which an be added in three main categoties
+The examples folder contains several examples that can be added into three main categories
 * Closed and Open Quantum system simulations 
 * Quantum optimal control with machine learning
 * Quantum optics
@@ -93,19 +91,19 @@ The examples folder contains several examples which an be added in three main ca
 All examples are implemented in jupyter notebooks and can be executed by any program that can execute a jupyter notebook, such as Visual Code Studio
 
 ## Usage instructions
-To use the library, after it is successfully installed, it is required to be added in the program scope using commands such as:
+To use the library, after it is successfully installed, it is required to be added to the program scope using commands such as:
 
 ```python
 import torchqc
 ```
 
-or directly including the submodules of interest:
+Or directly including the submodules of interest:
 
 ```python
 from torchqc.states import QuantumState
 ```
 
-After the needed object is into scope, one can use it to perform quantum operations. Following code defines the ground state of a qubit system:
+After the needed object is in scope, one can use it to perform quantum operations. The following code defines the ground state of a qubit system:
 
 ```python
 qubit_state = QuantumState.basis(2)[0]
