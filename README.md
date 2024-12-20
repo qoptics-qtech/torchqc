@@ -57,6 +57,13 @@ TorchQC is a Python library that is based on the PyTorch deep learning library. 
     - tensor_product.py: methods that calculate tensor products (Kronecker products) of states or operators
 
 ## Installation instructions
+### Alternative 1 (From PyPI)
+* Install package directly from PyPI
+```sh
+pip install torchqc
+```
+
+### Alternative 2 (From source code)
 * Clone GitHub repository
 ```sh
 git clone https://github.com/qoptics-qtech/torchqc.git
@@ -77,7 +84,7 @@ source my_env/bin/activate
 pip install -r requirements.txt
 ```
 
-* Install package (until it is officially released in Python Package Index PyPI)
+* Install package using src code
 ```sh
 pip install .
 ```
