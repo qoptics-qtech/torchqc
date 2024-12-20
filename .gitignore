@@ -4,3 +4,5 @@ build/
 dist/
 TorchQc.code-workspace
 to_be_inserted/*
+TorchQC.egg-info/PKG-INFO
+*.egg-info

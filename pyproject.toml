@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "torchqc"
+version = "1.0.0"
+authors = [
+  { name="Dimitris Koutromanos", email="dkoutromanos@upatras.gr" },
+]
+description = "Quantum simulation library based on PyTorch"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=2.0.0",
+    "torch>=2.3.1"
+]
+
+[project.urls]
+Homepage = "https://github.com/qoptics-qtech/torchqc"
