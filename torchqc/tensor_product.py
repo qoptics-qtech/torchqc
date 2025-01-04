@@ -33,6 +33,31 @@ def tensor_product_states(*states) -> QuantumState:
 
     return QuantumState(dims, product_state_tensor, dims_array)
 
+def tensor_product_states_from_array(states: list) -> QuantumState:
+    r"""
+    Constructs the tensor product (Kronecker product) of the tensor associated to the given QuantumState instances
+
+    Parameters
+    ----------
+    states : QuantumState array
+
+    Returns
+    -------
+    QuantumState : tensor product state
+    """
+
+    if len(states) <= 1:
+        raise RuntimeWarning("Error: given states should be a tuple or list of two or more states")
+    
+    dims_array = [state.dims for state in states]
+    dims = math.prod(dims_array)
+    product_state_tensor = states[0].state_tensor
+
+    for state in states[1:]:
+        product_state_tensor = torch.kron(product_state_tensor, state.state_tensor)
+
+    return QuantumState(dims, product_state_tensor, dims_array)
+
 def tensor_product_ops(*operators) -> Operator:
     r"""
     Constructs the tensor product (Kronecker product) of the tensor associated to the given Operator instances
@@ -48,6 +73,31 @@ def tensor_product_ops(*operators) -> Operator:
 
     if (isinstance(operators, tuple)):
         operators = list(operators)
+
+    if len(operators) <= 1:
+        raise RuntimeWarning("Error: given operators should be a tuple or list of two or more states")
+    
+    dims_array = [op.dims for op in operators]
+    dims = math.prod(dims_array)
+    product_tensor = operators[0].matrix
+
+    for operator in operators[1:]:
+        product_tensor = torch.kron(product_tensor, operator.matrix)
+    
+    return Operator(dims, product_tensor, dims_array)
+
+def tensor_product_ops_from_array(operators) -> Operator:
+    r"""
+    Constructs the tensor product (Kronecker product) of the tensor associated to the given Operator instances
+
+    Parameters
+    ----------
+    *operators : Operator array
+
+    Returns
+    -------
+    Operator : tensor product operator
+    """
 
     if len(operators) <= 1:
         raise RuntimeWarning("Error: given operators should be a tuple or list of two or more states")

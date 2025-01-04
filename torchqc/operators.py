@@ -71,6 +71,11 @@ class Operator:
     def dagger(self):
         # return Operator(self.dims, torch.conj(torch.transpose(self.matrix, 0, 1)).resize(self.dims, self.dims))
         return Operator(self.dims, torch.conj(torch.transpose(self.matrix, 0, 1)).contiguous().view(self.dims, self.dims))
+    
+    def to(self, device) -> Self:
+        self.matrix = self.matrix.to(device)
+
+        return self
 
     def is_hermitian(self):
         return (self == self.dagger())

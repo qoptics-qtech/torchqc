@@ -12,7 +12,7 @@ from types import FunctionType
 
 import numpy as np
 
-def TDSE(initial_state: QuantumState, hamiltonian: Operator, time: np.ndarray, Dt: float) -> list:
+def TDSE(initial_state: QuantumState, hamiltonian: Operator, time: np.ndarray, Dt: float, device="cpu") -> list:
     r"""
     TDSE(initial_state: QuantumState, hamiltonian: Operator, time: np.array, Dt: float) -> list
     
@@ -37,7 +37,7 @@ def TDSE(initial_state: QuantumState, hamiltonian: Operator, time: np.ndarray, D
     for i in range(len(time_tensor) - 1):
         Ht = hamiltonian.matrix[i]
         
-        current_state_tensor = torch.matmul(torch.linalg.matrix_exp(-1j * Ht * Dt), current_state.state_tensor)
+        current_state_tensor = torch.matmul(torch.linalg.matrix_exp(-1j * Ht * Dt).to(device), current_state.state_tensor)
         
         current_state = QuantumState(current_state.dims, current_state_tensor)
         states.append(current_state)
@@ -91,7 +91,7 @@ def TDSE_numeric(initial_state: QuantumState, hamiltonian: Operator, time: np.nd
 
     return state_vectors
 
-def von_neumann(initial_state: Operator, hamiltonian: Operator, time: np.ndarray, Dt: float):
+def von_neumann(initial_state: Operator, hamiltonian: Operator, time: np.ndarray, Dt: float, device="cpu"):
     r"""
     Simulates the dynamnics with von-Neumann equation
 
@@ -121,7 +121,7 @@ def von_neumann(initial_state: Operator, hamiltonian: Operator, time: np.ndarray
     for i in range(len(time_tensor)):
         Ht = hamiltonian.matrix[i]
 
-        rho_t = torch.matmul(torch.matmul(torch.linalg.matrix_exp(-1j * Ht * Dt), current_density_matrix.matrix), torch.linalg.matrix_exp(1j * Ht * Dt))
+        rho_t = torch.matmul(torch.matmul(torch.linalg.matrix_exp(-1j * Ht * Dt).to(device), current_density_matrix.matrix), torch.linalg.matrix_exp(1j * Ht * Dt))
         
         new_state = Operator(current_density_matrix.dims, rho_t)
 
@@ -204,7 +204,7 @@ def lindblad_equation(initial_state: Operator, hamiltonian: Operator, time: np.n
 
     return (time_tensor, density_matrices)
 
-def lindblad_equation_FLS(initial_state: Operator, hamiltonian: Operator, time: np.ndarray, Dt: float, jump_operators: list = [], damp_rates = []):
+def lindblad_equation_FLS(initial_state: Operator, hamiltonian: Operator, time: np.ndarray, Dt: float, jump_operators: list = [], damp_rates = [], device="cpu"):
     r"""
     Simulates the dynamnics with lindblad master equation with optinal jump operators in the Fock-Liouville space
     It maps state in the Fock-Liouiville Space and then solve numerically the equation d|rho>> / dt = L |rho>>
@@ -243,7 +243,7 @@ def lindblad_equation_FLS(initial_state: Operator, hamiltonian: Operator, time: 
     for i in range(len(time_tensor) - 1):
         Lt = L.matrix[i]
         
-        current_state_tensor = torch.matmul(torch.linalg.matrix_exp(Lt * Dt), current_state.state_tensor)
+        current_state_tensor = torch.matmul(torch.linalg.matrix_exp(Lt * Dt).to(device), current_state.state_tensor)
         
         current_state = QuantumState(current_state.dims, current_state_tensor)
         states.append(current_state)

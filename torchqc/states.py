@@ -111,6 +111,11 @@ class QuantumState:
         self.state_tensor /= torch.norm(self.state_tensor)
         return self
     
+    def to(self, device) -> Self:
+        self.state_tensor = self.state_tensor.to(device)
+
+        return self
+    
     @staticmethod
     def basis(dims):
         basis_states = []

@@ -5,7 +5,7 @@ from torchqc.states import QuantumState
 from torchqc.common_matrices import sigmaY, eye
 from torchqc.tensor_product import tensor_product_ops
 
-def left_superoperator(op: Operator):
+def left_superoperator(op: Operator, device = "cpu"):
     r"""
     Computes the left superoperator in the Fock-Liouville space (FLS) L(op) of operator op 
 
@@ -26,9 +26,9 @@ def left_superoperator(op: Operator):
         float numbers that measures the concurrence.
     """
 
-    return tensor_product_ops(op, eye(op.dims))
+    return tensor_product_ops(op.to(device), eye(op.dims).to(device))
                               
-def right_superoperator(op: Operator):
+def right_superoperator(op: Operator, device = "cpu"):
     r"""
     Computes the right superoperator in the Fock-Liouville space (FLS) R(op) of operator op 
 
@@ -49,7 +49,7 @@ def right_superoperator(op: Operator):
         float numbers that measures the concurrence.
     """
 
-    return tensor_product_ops(eye(op.dims), op.dagger())
+    return tensor_product_ops(eye(op.dims).to(device), op.dagger().to(device))
 
 def fock_liouville(rho: Operator) -> QuantumState:
     r"""
@@ -68,7 +68,7 @@ def fock_liouville(rho: Operator) -> QuantumState:
 
     return QuantumState(rho.dims ** 2, rho.matrix.flatten())
 
-def lindbladian_operator(H: DynamicOperator|Operator, time: list[float], jump_ops = [], rates = []) -> DynamicOperator|Operator:
+def lindbladian_operator(H: DynamicOperator|Operator, time: list[float], jump_ops = [], rates = [], device = "cpu") -> DynamicOperator|Operator:
     r"""
     Computes the matrix representation of the given operator in the Fock-Liouville Space
 
@@ -87,11 +87,11 @@ def lindbladian_operator(H: DynamicOperator|Operator, time: list[float], jump_op
         the representation of the operator in the FLS
     """
 
-    L = -1j * (left_superoperator(H) - right_superoperator(H))
+    L = -1j * (left_superoperator(H, device) - right_superoperator(H, device))
 
     for (op, rate) in zip(jump_ops, rates):
         L += rate * (
-            left_superoperator(op) * right_superoperator(op.dagger()) - (1 / 2) * (left_superoperator(op.dagger() * op) + right_superoperator(op.dagger() * op))
+            left_superoperator(op, device) * right_superoperator(op.dagger(), device) - (1 / 2) * (left_superoperator(op.dagger() * op, device) + right_superoperator(op.dagger() * op, device))
         ) 
  
     if isinstance(H, DynamicOperator):
