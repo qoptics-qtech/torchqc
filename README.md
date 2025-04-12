@@ -55,6 +55,7 @@ TorchQC is a Python library that is based on the PyTorch deep learning library. 
     - runge_kutta_methods.py: Runge-Kutta numerical methods for solving ordinary differential equations
     - states.py: QuamtumState class representing quantum state vector
     - tensor_product.py: methods that calculate tensor products (Kronecker products) of states or operators
+    - spin.py: methods to implement dicke states of spin-1/2 systems
 
 ## Installation instructions
 ### Alternative 1 (From PyPI)
