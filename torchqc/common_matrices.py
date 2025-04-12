@@ -1,7 +1,6 @@
 import torch
 import numpy as np
 from torchqc.operators import Operator
-from torchqc.states import QuantumState
 
 def sigmaX(dims=2):
     """

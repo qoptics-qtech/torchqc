@@ -6,6 +6,7 @@ from torchqc.common_matrices import sigmaY
 from torchqc.tensor_product import tensor_product_ops
 from torchqc.dynamics import lindblad_equation, lindblad_equation_FLS
 from torchqc.fock_liouville import left_superoperator, right_superoperator
+import math
 
 def get_density_matrix(state: QuantumState) -> Operator:
     """
@@ -304,3 +305,6 @@ def steadystate(H: Operator, jump_ops: list[Operator], rates: list[float], metho
 
     else:
         raise RuntimeError(f"Method {method} not implemented!")
+    
+def binomial_coef(n, k):
+    return (math.factorial(n)) / (math.factorial(k) * math.factorial(n-k))
